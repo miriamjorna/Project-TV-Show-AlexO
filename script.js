@@ -2,8 +2,10 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
-  // Adding event listener for search input
+  // adding event listener for search input
   makeSearch(allEpisodes);
+  // adding options to episode selector
+  makeSelector(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
@@ -49,27 +51,64 @@ function makePageForEpisodes(episodeList) {
 // adding searchbox
 function makeSearch(episodeList) {
   const searchInput = document.getElementById("search-input");
-  
+
   //input event listener responds at every keystroke
   searchInput.addEventListener("input", () => {
     //make the search case insensitive
     const searchTerm = searchInput.value.toLowerCase();
-    
+
     if (searchTerm === "") {
       makePageForEpisodes(episodeList);
       document.getElementById("searchCount").textContent = "";
       return;
     }
-    
-    const filteredEpisodes = episodeList.filter(episode => 
-      episode.name.toLowerCase().includes(searchTerm) ||
-      episode.summary.toLowerCase().includes(searchTerm)
+
+    const filteredEpisodes = episodeList.filter(
+      (episode) =>
+        episode.name.toLowerCase().includes(searchTerm) ||
+        episode.summary.toLowerCase().includes(searchTerm),
     );
-    
+
     //count and display number of search results
     makePageForEpisodes(filteredEpisodes);
-    document.getElementById("searchCount").textContent = 
+    document.getElementById("searchCount").textContent =
       `${filteredEpisodes.length} episode(s) match your search`;
+  });
+}
+
+function makeSelector(episodeList) {
+  const select = document.getElementById("episode-select");
+
+  // populate the dropdown with all episodes
+  episodeList.forEach((episode) => {
+    const paddedSeason = String(episode.season).padStart(2, "0");
+    const paddedNumber = String(episode.number).padStart(2, "0");
+    const code = `S${paddedSeason}E${paddedNumber}`;
+
+    const option = document.createElement("option");
+    option.value = code;
+    option.textContent = `${code} - ${episode.name}`;
+    select.appendChild(option);
+  });
+
+  // when user selects an episode
+  select.addEventListener("change", () => {
+    const selectedCode = select.value;
+
+    // show all if default selected
+    if (selectedCode === "") {
+      makePageForEpisodes(episodeList);
+      return;
+    }
+
+    const selectedEpisode = episodeList.filter((episode) => {
+      const paddedSeason = String(episode.season).padStart(2, "0");
+      const paddedNumber = String(episode.number).padStart(2, "0");
+      return `S${paddedSeason}E${paddedNumber}` === selectedCode;
+    });
+
+    // show only selected episode
+    makePageForEpisodes(selectedEpisode);
   });
 }
 
