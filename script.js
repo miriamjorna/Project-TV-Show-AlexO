@@ -1,4 +1,5 @@
 // Global variable to store all TV show episodes fetched from the API
+const episodeCache = {};
 let allEpisodes = [];
 
 async function setup() {
