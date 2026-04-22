@@ -95,8 +95,6 @@ footer a:hover {
   border-bottom: 1px solid #2a2d3e;
 }
 
-/* Styling the S01E01 part specifically if you want (requires a span in JS) 
-   Otherwise, this just colors the whole title */
 .episode-card h2 {
   color: #fff;
 }
@@ -120,7 +118,7 @@ footer a:hover {
   flex-grow: 1; /* Ensures buttons/footers align if cards are different heights */
 }
 
-/* Custom Scrollbar for a truly clean look */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -133,4 +131,40 @@ footer a:hover {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-color);
+}
+
+/* Styles for Level 300 Status Messages */
+.status-message,
+.error-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  margin-top: 50px;
+  grid-column: 1 / -1; /* Centers message in the grid */
+}
+
+.error-container {
+  text-align: center;
+  padding: 40px;
+  background: var(--card-bg);
+  border: 1px solid #ff4d4d;
+  border-radius: 15px;
+  grid-column: 1 / -1;
+}
+
+.error-details {
+  color: var(--text-secondary);
+  font-family: monospace;
+  margin: 10px 0;
+}
+
+.error-container button {
+  background: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
 }
