@@ -113,19 +113,12 @@ function createEpisodeCard(episode) {
   const imageSrc = episode.image ? episode.image.medium : "";
 
   episodeCard.innerHTML = `
-  <h2>${episode.name} - ${episodeCode}</h2>
-  ${imageSrc ? `<img src="${imageSrc}" alt="${episode.name}" />` : `<p class="no-image">No image available</p>`}
-  <div class="episode-summary">${episode.summary || "No summary available."}</div>
-`;
-
-  episodeCard.innerHTML = `
     <h2>${episode.name} - ${episodeCode}</h2>
-    <img src="${imageSrc}" alt="${episode.name}" />
+    ${imageSrc ? `<img src="${imageSrc}" alt="${episode.name}" />` : `<p class="no-image">No image available</p>`}
     <div class="episode-summary">${episode.summary || "No summary available."}</div>
   `;
   return episodeCard;
 }
-
 function renderEpisodeGallery(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
